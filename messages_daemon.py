@@ -56,14 +56,18 @@ def process_messages():
             break
 
 
-delta = timedelta(minutes=5)
-timer = datetime.now()
+queue_delta = timedelta(minutes=5)
+queue_timer = datetime.now()
+send_delta = timedelta(minutes=1)
+send_timer = datetime.now()
 while True:
-    if timer <= datetime.now():
+    if queue_timer <= datetime.now():
         q.put({
             'time': int(datetime.now().timestamp()),
             'value': random.randrange(1, 100000),
         })
-        timer = datetime.now() + delta
-    process_messages()
+        queue_timer = datetime.now() + queue_delta
+    if send_timer <= datetime.now():
+        process_messages()
+        send_timer = datetime.now() + send_delta
     time.sleep(1)
