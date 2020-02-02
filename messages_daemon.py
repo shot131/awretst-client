@@ -58,7 +58,7 @@ def process_messages():
 
 queue_delta = timedelta(minutes=5)
 queue_timer = datetime.now()
-send_delta = timedelta(minutes=1)
+send_delta = timedelta(minutes=2)
 send_timer = datetime.now()
 while True:
     if queue_timer <= datetime.now():
